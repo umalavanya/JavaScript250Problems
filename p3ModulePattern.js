@@ -5,8 +5,9 @@ const myModule = (() =>{
     }
 
     return ()=>{
-        privateData() ;
         
+        privateData() ;
+
     }
 })() ;
 
