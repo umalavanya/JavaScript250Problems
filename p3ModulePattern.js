@@ -3,11 +3,8 @@ const myModule = (() =>{
     function privateMethod(){
         return privateData ;
     }
-
     return ()=>{
-        
         privateData() ;
-
     }
 })() ;
 
