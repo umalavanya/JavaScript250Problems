@@ -4,6 +4,6 @@ class Solution {
      * @return {number[]}
      */
     getConcatenation(nums) {
-        return [...nums,...nums]
+        return [...nums,...nums] ;
     }
 }
