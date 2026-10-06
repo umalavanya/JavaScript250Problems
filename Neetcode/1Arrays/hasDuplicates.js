@@ -10,6 +10,5 @@ function hasDuplicate(nums){
     return false ;
 }
 
-
 const nums = [1,2,4,5,6,3] ;
 console.log(hasDuplicate(nums));
