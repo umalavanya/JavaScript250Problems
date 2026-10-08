@@ -14,8 +14,16 @@ console.log(word.charAt(0), word.charAt(word.length-1))
 let firstName = "John";
 let lastName = "Doe";
 // TODO: Create a full name using concatenation and template literals
-console.log(`${firstName} ${lastName}`)
+let fullName = `${firstName} `+`${lastName}` ;
+console.log(fullName)
 
 // 2. Case Conversion
-// Ex 4: 
-let text 
+// Exercise 4: Change case
+let text = "Hello World";
+// TODO: Convert to uppercase and lowercase
+// Expected: "HELLO WORLD" and "hello world"
+
+// Exercise 5: Capitalize first letter
+let sentence = "javascript is awesome";
+// TODO: Capitalize only the first letter
+// Expected: "Javascript is awesome"
