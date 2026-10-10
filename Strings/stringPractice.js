@@ -28,15 +28,14 @@ console.log(text.toUpperCase(), text.toLowerCase())
 let sentence = "javascript is awesome";
 // TODO: Capitalize only the first letter
 // Expected: "Javascript is awesome"
-let capitalized = sentence.charAt(0).toUpperCase + sentence.slice(1);
+let capitalized = sentence.charAt(0).toUpperCase() + sentence.slice(1);
 console.log(capitalized)
-
-
 
 
 // Exercise 6: Find substring
 let phrase = "The quick brown fox jumps over the lazy dog";
 // TODO: Check if "fox" exists in the phrase
+
 // TODO: Find the index of "brown"
 // TODO: Check if the phrase starts with "The" and ends with "dog"
 
