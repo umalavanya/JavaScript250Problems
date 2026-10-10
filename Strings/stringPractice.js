@@ -35,7 +35,8 @@ console.log(capitalized)
 // Exercise 6: Find substring
 let phrase = "The quick brown fox jumps over the lazy dog";
 // TODO: Check if "fox" exists in the phrase
-
+let hasFox = phrase.includes("fox") ;
+console.log(hasFox)
 // TODO: Find the index of "brown"
 // TODO: Check if the phrase starts with "The" and ends with "dog"
 
