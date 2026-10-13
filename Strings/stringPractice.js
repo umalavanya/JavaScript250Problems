@@ -36,8 +36,9 @@ console.log(capitalized)
 let phrase = "The quick brown fox jumps over the lazy dog";
 // TODO: Check if "fox" exists in the phrase
 let hasFox = phrase.includes("fox") ;
-console.log(hasFox)
+console.log(hasFox) ;
 // TODO: Find the index of "brown"
+let indi = phrase.indexOf("brown") ;
 // TODO: Check if the phrase starts with "The" and ends with "dog"
 
 // Exercise 7: Count occurrences
