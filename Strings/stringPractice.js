@@ -40,6 +40,11 @@ console.log(hasFox) ;
 // TODO: Find the index of "brown"
 let indi = phrase.indexOf("brown") ;
 // TODO: Check if the phrase starts with "The" and ends with "dog"
+let startsWithThe = phrase.startsWith("The");
+let endsWithDog = phrase.endsWith("dog");
+console.log(startsWithThe); // true
+console.log(endsWithDog);   // true
+
 
 // Exercise 7: Count occurrences
 let data = "apple banana apple orange apple";
