@@ -46,10 +46,13 @@ console.log(startsWithThe); // true
 console.log(endsWithDog);   // true
 
 
+
 // Exercise 7: Count occurrences
-let data = "apple banana apple orange apple";
+let data = "apple banana apple orange apple apple";
 // TODO: Count how many times "apple" appears
 // Expected: 3
+let count = data.split("pp") ;
+console.log(count) ;
 
 
 
