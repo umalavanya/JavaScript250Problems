@@ -51,7 +51,7 @@ console.log(endsWithDog);   // true
 let data = "apple banana apple orange apple apple";
 // TODO: Count how many times "apple" appears
 // Expected: 3
-let count = data.split("pp") ;
+let count = data.split("apple").length - 1 ;
 console.log(count) ;
 
 
@@ -60,21 +60,33 @@ console.log(count) ;
 // Exercise 8: Extract substring
 let email = "user@example.com";
 // TODO: Extract the username (before @) and domain (after @)
+let [username, domain] = email.split("@") ;
+console.log(username, domain) ;
+
+
 
 // Exercise 9: Replace characters
 let text1 = "Hello World";
 // TODO: Replace "World" with "JavaScript"
+let updatedText = text1.replace("World", "JavaScript") ;
+console.log(updatedText) ;
+
 // TODO: Replace all "l" with "L"
+let upperL = text1.replaceAll('l', 'L') ;
+console.log(upperL) ;
 
 // Exercise 10: Trim whitespace
 let messy = "   Hello World   ";
 // TODO: Remove leading and trailing spaces
-
+let trimmedMessy = messy.trim() ;
+console.log(trimmedMessy);
 
 // Exercise 11: Split and join
 let csv = "apple,banana,orange,grape";
 // TODO: Split into array and join with " | "
-// Expected: "apple | banana | orange | grape"
+// Expected: "apple | banana | orange | grape" 
+let resultCSV = csv.split(',').join(' | ') ;
+console.log(resultCSV);
 
 // Exercise 12: Reverse words
 let sentence1 = "Hello World from JavaScript";
