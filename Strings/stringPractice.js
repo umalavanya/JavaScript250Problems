@@ -98,10 +98,15 @@ let sentence1 = "Hello World from JavaScript";
 function validateEmail(email) {
     // TODO: Check if email contains @ and .
     // Return true/false
+    if (email.includes('@') && email.includes('.')){
+        return true ;
+    } else {
+        return false;
+    }
 }
 // Test cases:
-// validateEmail("user@example.com") // true
-// validateEmail("invalid.email") // false
+console.log(validateEmail("user@example.com")) // true
+console.log(validateEmail("invalid.email")) // false
 
 // Exercise 14: Check palindrome
 function isPalindrome(str) {
