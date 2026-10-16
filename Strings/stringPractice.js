@@ -112,9 +112,21 @@ console.log(validateEmail("invalid.email")) // false
 function isPalindrome(str) {
     // TODO: Check if string reads same forwards and backwards
     // Ignore spaces, punctuation, and case
+    // 1. Clean the string: Lower-case it and remove all non-alphanumeric characters
+    let cleanStr = str.toLowerCase().replace(/[^a-z0-9]/g,"");
+
+    // 2.Reverse the cleaned string
+    let reversedStr = cleanStr.split("").reverse().join("");
+
+    // 3. Compare them
+    return cleanStr === reversedStr ;
+
 }
 // Test: "A man, a plan, a canal: Panama" // true
-
+// Test cases:
+console.log(isPalindrome("A man, a plan, a canal. Panama")); // true
+console.log(isPalindrome("racecar"));                         // true
+console.log(isPalindrome("hello"));                           // false
 
 // Exercise 15: Remove duplicates
 let str = "programming";
