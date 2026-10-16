@@ -121,6 +121,7 @@ function isPalindrome(str) {
     // 3. Compare them
     return cleanStr === reversedStr ;
 
+    
 }
 // Test: "A man, a plan, a canal: Panama" // true
 // Test cases:
