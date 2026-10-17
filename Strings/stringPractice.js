@@ -121,7 +121,7 @@ function isPalindrome(str) {
     // 3. Compare them
     return cleanStr === reversedStr ;
 
-    
+
 }
 // Test: "A man, a plan, a canal: Panama" // true
 // Test cases:
@@ -145,6 +145,7 @@ function areAnagrams(str1, str2) {
     // (contain same characters in different order)
 }
 // Test: areAnagrams("listen", "silent") // true
+
 // Test: areAnagrams("hello", "world") // false
 
 // Exercise 18: Camel case converter
