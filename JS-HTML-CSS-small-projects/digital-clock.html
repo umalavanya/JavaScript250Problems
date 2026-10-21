@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>digital clock · alarm · stopwatch · timer</title>
+    <title>digital clock · alarm · stopwatch · timer (all working)</title>
     <style>
         * {
             margin: 0;
@@ -17,17 +17,17 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
-            padding: 16px;
+            padding: 16px; 
         }
         .card {
-            background: rgba(18, 30, 40, 0.85);
+            background: rgba(18, 30, 40, 0.88);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 48px;
-            padding: 32px 28px;
+            border-radius: 48px; 
+            padding: 32px 28px; 
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            max-width: 720px;
+            border: 1px solid rgba(255, 255, 255, 0.06); 
+            max-width: 760px;
             width: 100%;
         }
         .tabs {
@@ -56,10 +56,7 @@
             justify-content: center;
             gap: 6px;
         }
-        .tab-btn i {
-            font-size: 1.2rem;
-            font-style: normal;
-        }
+        .tab-btn i { font-size: 1.2rem; font-style: normal; }
         .tab-btn.active {
             background: #4f9cf7;
             color: #0b1a2e;
@@ -73,11 +70,10 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 18px;
+            gap: 16px;
         }
-        .panel.active {
-            display: flex;
-        }
+        .panel.active { display: flex; }
+
         .time-display {
             font-size: 4.5rem;
             font-weight: 700;
@@ -86,7 +82,8 @@
             color: #e9f2ff;
             text-shadow: 0 0 18px rgba(79, 156, 247, 0.5);
             line-height: 1.2;
-            margin: 8px 0 4px;
+            margin: 4px 0;
+            transition: all 0.1s;
         }
         .date-display {
             font-size: 1.1rem;
@@ -115,7 +112,7 @@
             font-size: 0.9rem;
             color: #9ab8d9;
         }
-        input[type="time"] {
+        input[type="time"], input[type="number"] {
             background: transparent;
             border: none;
             color: #e9f2ff;
@@ -123,12 +120,16 @@
             font-weight: 500;
             padding: 6px 0;
             outline: none;
-            width: 120px;
             font-variant-numeric: tabular-nums;
         }
+        input[type="time"] { width: 120px; }
+        input[type="number"] { width: 60px; text-align: center; }
         input[type="time"]::-webkit-calendar-picker-indicator {
             filter: invert(0.8);
             cursor: pointer;
+        }
+        input[type="number"]::-webkit-inner-spin-button {
+            opacity: 0.6;
         }
         .btn {
             background: #2e4a62;
@@ -146,6 +147,7 @@
             gap: 8px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            min-width: 90px;
         }
         .btn:hover {
             background: #3e6282;
@@ -155,20 +157,24 @@
             background: #4f9cf7;
             color: #0b1a2e;
         }
-        .btn-primary:hover {
-            background: #6cb0ff;
-        }
+        .btn-primary:hover { background: #6cb0ff; }
         .btn-danger {
             background: #d44;
             color: white;
         }
-        .btn-danger:hover {
-            background: #e55;
-        }
+        .btn-danger:hover { background: #e55; }
         .btn-small {
             padding: 8px 18px;
             font-size: 0.9rem;
+            min-width: 70px;
         }
+        .btn:disabled {
+            opacity: 0.45;
+            transform: none;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
         .stopwatch-display, .timer-display {
             font-size: 3.8rem;
             font-weight: 700;
@@ -179,30 +185,33 @@
             margin: 4px 0 8px;
         }
         .alarm-status {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: #ffb86b;
             font-weight: 500;
             margin: 4px 0;
             min-height: 2rem;
+            text-align: center;
         }
         .alarm-list {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
-            margin-top: 8px;
+            margin-top: 4px;
+            min-height: 44px;
         }
         .alarm-chip {
             background: #1f3447;
-            padding: 8px 18px;
+            padding: 8px 12px 8px 18px;
             border-radius: 40px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: #b8d8ff;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: inset 0 1px 3px #00000055;
+            border: 1px solid #2e4a62;
         }
         .alarm-chip button {
             background: transparent;
@@ -212,16 +221,15 @@
             cursor: pointer;
             font-weight: bold;
             padding: 0 4px;
+            line-height: 1;
         }
-        .alarm-chip button:hover {
-            color: #ffbbbb;
-        }
+        .alarm-chip button:hover { color: #ffbbbb; }
         .ringing {
             animation: pulse 1s infinite;
         }
         @keyframes pulse {
             0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.85; transform: scale(1.02); }
+            50% { opacity: 0.8; transform: scale(1.02); }
             100% { opacity: 1; transform: scale(1); }
         }
         .hint {
@@ -232,11 +240,51 @@
         }
         .mt-2 { margin-top: 8px; }
         .mt-3 { margin-top: 16px; }
+        .timer-presets {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .timer-presets .btn {
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            min-width: auto;
+        }
+        .timer-progress {
+            font-size: 1.0rem;
+            color: #8ba9cc;
+            font-weight: 500;
+        }
+        .sw-lap-list {
+            max-height: 120px;
+            overflow-y: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 4px;
+            margin-top: 4px;
+        }
+        .lap-item {
+            display: flex;
+            justify-content: space-between;
+            font-variant-numeric: tabular-nums;
+            background: rgba(0,0,0,0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            color: #b8d8ff;
+        }
+        .lap-item span:last-child {
+            font-weight: 700;
+            color: #e9f2ff;
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <!-- TAB BUTTONS -->
+        <!-- TABS -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="clock"><i>🕒</i> Clock</button>
             <button class="tab-btn" data-tab="alarm"><i>⏰</i> Alarm</button>
@@ -244,13 +292,13 @@
             <button class="tab-btn" data-tab="timer"><i>⏳</i> Timer</button>
         </div>
 
-        <!-- CLOCK PANEL -->
+        <!-- CLOCK -->
         <div id="clockPanel" class="panel active">
             <div class="time-display" id="clockTime">--:--:--</div>
             <div class="date-display" id="clockDate">---</div>
         </div>
 
-        <!-- ALARM PANEL -->
+        <!-- ALARM -->
         <div id="alarmPanel" class="panel">
             <div class="time-display" id="alarmTimeDisplay">--:--:--</div>
             <div class="row">
@@ -262,45 +310,85 @@
             </div>
             <div class="alarm-status" id="alarmStatus"></div>
             <div class="alarm-list" id="alarmList"></div>
-            <button class="btn btn-danger btn-small" id="stopAlarmBtn" style="display: none;">🔕 Stop ringing</button>
-            <div class="hint">alarm will ring at set time</div>
+            <div class="row">
+                <button class="btn btn-danger btn-small" id="stopAlarmBtn" style="display: none;">🔕 Stop ringing</button>
+                <button class="btn btn-small" id="snoozeAlarmBtn" style="display: none;">😴 Snooze 5min</button>
+            </div>
+            <div class="hint">alarm rings at set time — snooze adds 5 minutes</div>
         </div>
 
-        <!-- STOPWATCH PANEL -->
+        <!-- STOPWATCH -->
         <div id="stopwatchPanel" class="panel">
             <div class="stopwatch-display" id="stopwatchDisplay">00:00.00</div>
             <div class="row">
                 <button class="btn btn-primary" id="stopwatchStart">▶ Start</button>
                 <button class="btn" id="stopwatchPause">⏸ Pause</button>
+                <button class="btn" id="stopwatchLap">⏱ Lap</button>
                 <button class="btn btn-danger" id="stopwatchReset">↺ Reset</button>
             </div>
+            <div class="sw-lap-list" id="lapList"></div>
         </div>
 
-        <!-- TIMER PANEL -->
+        <!-- TIMER -->
         <div id="timerPanel" class="panel">
             <div class="timer-display" id="timerDisplay">00:00</div>
+            <div class="timer-progress" id="timerProgress"></div>
             <div class="row">
                 <div class="input-group">
                     <label>min</label>
-                    <input type="number" id="timerMinutes" min="0" max="99" value="5" style="width: 60px; background: transparent; border: none; color: #e9f2ff; font-size: 1.2rem; text-align: center; outline: none;">
+                    <input type="number" id="timerMinutes" min="0" max="99" value="5">
                 </div>
                 <div class="input-group">
                     <label>sec</label>
-                    <input type="number" id="timerSeconds" min="0" max="59" value="0" style="width: 60px; background: transparent; border: none; color: #e9f2ff; font-size: 1.2rem; text-align: center; outline: none;">
+                    <input type="number" id="timerSeconds" min="0" max="59" value="0">
                 </div>
+            </div>
+            <div class="timer-presets">
+                <button class="btn btn-small" data-preset="60">1 min</button>
+                <button class="btn btn-small" data-preset="300">5 min</button>
+                <button class="btn btn-small" data-preset="600">10 min</button>
+                <button class="btn btn-small" data-preset="1500">25 min</button>
             </div>
             <div class="row">
                 <button class="btn btn-primary" id="timerStart">▶ Start</button>
                 <button class="btn" id="timerPause">⏸ Pause</button>
                 <button class="btn btn-danger" id="timerReset">↺ Reset</button>
             </div>
-            <div class="hint">set minutes & seconds, then start</div>
+            <div class="hint">set time or use preset, then start</div>
         </div>
     </div>
 
     <script>
-        (function(){
-            // ---------- TAB SWITCHING ----------
+        (function() {
+            'use strict';
+
+            // ---------- SHARED AUDIO ----------
+            let audioCtx = null;
+            function getAudioCtx() {
+                if (!audioCtx) {
+                    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+                    catch(e) { console.warn('AudioContext not supported'); }
+                }
+                if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+                return audioCtx;
+            }
+            function beep(freq = 880, duration = 0.25, type = 'sine', vol = 0.4) {
+                const ctx = getAudioCtx();
+                if (!ctx) return;
+                try {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.value = freq;
+                    gain.gain.value = vol;
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + duration);
+                } catch(e) {}
+            }
+
+            // ---------- TABS ----------
             const tabs = document.querySelectorAll('.tab-btn');
             const panels = {
                 clock: document.getElementById('clockPanel'),
@@ -308,13 +396,9 @@
                 stopwatch: document.getElementById('stopwatchPanel'),
                 timer: document.getElementById('timerPanel')
             };
-            let activeTab = 'clock';
-
             tabs.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const tab = btn.dataset.tab;
-                    if (!tab) return;
-                    activeTab = tab;
                     tabs.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     Object.values(panels).forEach(p => p.classList.remove('active'));
@@ -322,7 +406,7 @@
                 });
             });
 
-            // ---------- GLOBAL CLOCK (updates every second) ----------
+            // ---------- GLOBAL CLOCK ----------
             const clockTimeEl = document.getElementById('clockTime');
             const clockDateEl = document.getElementById('clockDate');
             const alarmTimeDisplay = document.getElementById('alarmTimeDisplay');
@@ -334,11 +418,8 @@
                 const ss = String(now.getSeconds()).padStart(2, '0');
                 clockTimeEl.textContent = `${hh}:${mm}:${ss}`;
                 alarmTimeDisplay.textContent = `${hh}:${mm}:${ss}`;
-
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                clockDateEl.textContent = now.toLocaleDateString(undefined, options);
-
-                // check alarms every second
+                const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                clockDateEl.textContent = now.toLocaleDateString(undefined, opts);
                 checkAlarms(hh, mm, ss);
             }
             setInterval(updateClock, 1000);
@@ -350,66 +431,41 @@
             const alarmListEl = document.getElementById('alarmList');
             const alarmStatusEl = document.getElementById('alarmStatus');
             const stopAlarmBtn = document.getElementById('stopAlarmBtn');
+            const snoozeAlarmBtn = document.getElementById('snoozeAlarmBtn');
 
-            let alarms = [];          // array of { id, time: "HH:MM" }
-            let ringingAlarm = null;  // { id, time } when ringing
-            let alarmInterval = null; // for beeping sound
-            let audioCtx = null;
+            let alarms = [];                // { id, time }
+            let ringingAlarm = null;        // { id, time }
+            let alarmSoundInterval = null;
 
-            // create a simple beep using Web Audio
             function startAlarmSound() {
-                if (alarmInterval) return;
-                try {
-                    if (!audioCtx) {
-                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    }
-                    if (audioCtx.state === 'suspended') {
-                        audioCtx.resume();
-                    }
-                    const beep = () => {
-                        if (!audioCtx) return;
-                        const osc = audioCtx.createOscillator();
-                        const gain = audioCtx.createGain();
-                        osc.type = 'sine';
-                        osc.frequency.value = 880;
-                        gain.gain.value = 0.4;
-                        osc.connect(gain);
-                        gain.connect(audioCtx.destination);
-                        osc.start();
-                        osc.stop(audioCtx.currentTime + 0.25);
-                    };
-                    beep();
-                    alarmInterval = setInterval(beep, 500);
-                } catch (e) {
-                    console.warn('audio not supported', e);
-                }
+                if (alarmSoundInterval) return;
+                beep(880, 0.25, 'sine', 0.4);
+                alarmSoundInterval = setInterval(() => beep(880, 0.25, 'sine', 0.4), 500);
             }
-
             function stopAlarmSound() {
-                if (alarmInterval) {
-                    clearInterval(alarmInterval);
-                    alarmInterval = null;
+                if (alarmSoundInterval) {
+                    clearInterval(alarmSoundInterval);
+                    alarmSoundInterval = null;
                 }
             }
-
             function stopRinging() {
                 stopAlarmSound();
                 ringingAlarm = null;
                 stopAlarmBtn.style.display = 'none';
+                snoozeAlarmBtn.style.display = 'none';
                 alarmStatusEl.textContent = '';
-                // remove ringing class from display if needed
                 alarmTimeDisplay.classList.remove('ringing');
             }
 
             function checkAlarms(hh, mm, ss) {
-                if (ringingAlarm) return; // already ringing, ignore
+                if (ringingAlarm) return;
                 const nowTime = `${hh}:${mm}`;
                 for (let al of alarms) {
                     if (al.time === nowTime) {
-                        // trigger alarm
                         ringingAlarm = { ...al };
-                        alarmStatusEl.textContent = `⏰ RINGING! ${al.time} — press stop`;
+                        alarmStatusEl.textContent = `⏰ RINGING! ${al.time} — stop or snooze`;
                         stopAlarmBtn.style.display = 'inline-flex';
+                        snoozeAlarmBtn.style.display = 'inline-flex';
                         alarmTimeDisplay.classList.add('ringing');
                         startAlarmSound();
                         break;
@@ -428,75 +484,93 @@
                         <button class="delete-alarm" data-id="${al.id}" title="remove">✕</button>
                     </div>
                 `).join('');
-
                 document.querySelectorAll('.delete-alarm').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const id = Number(btn.dataset.id);
                         alarms = alarms.filter(a => a.id !== id);
-                        if (ringingAlarm && ringingAlarm.id === id) {
-                            stopRinging();
-                        }
+                        if (ringingAlarm && ringingAlarm.id === id) stopRinging();
                         renderAlarms();
                     });
                 });
             }
 
-            // set alarm
             setAlarmBtn.addEventListener('click', () => {
-                const timeVal = alarmInput.value; // "HH:MM"
-                if (!timeVal) return;
+                const timeVal = alarmInput.value;
+                if (!timeVal) { alert('pick a time first'); return; }
                 if (alarms.some(a => a.time === timeVal)) {
-                    alert('alarm already exists for ' + timeVal);
+                    alarmStatusEl.textContent = `⚠️ alarm for ${timeVal} already exists`;
+                    setTimeout(() => { if (!ringingAlarm) alarmStatusEl.textContent = ''; }, 2000);
                     return;
                 }
-                const newAlarm = {
-                    id: Date.now() + Math.random(),
-                    time: timeVal
-                };
-                alarms.push(newAlarm);
+                alarms.push({ id: Date.now() + Math.random(), time: timeVal });
                 renderAlarms();
-                alarmStatusEl.textContent = `alarm set for ${timeVal}`;
-                setTimeout(() => {
-                    if (!ringingAlarm) alarmStatusEl.textContent = '';
-                }, 2000);
+                alarmStatusEl.textContent = `✅ alarm set for ${timeVal}`;
+                setTimeout(() => { if (!ringingAlarm) alarmStatusEl.textContent = ''; }, 2500);
             });
 
-            // stop ringing button
             stopAlarmBtn.addEventListener('click', stopRinging);
 
-            // initial render
+            snoozeAlarmBtn.addEventListener('click', () => {
+                if (!ringingAlarm) return;
+                // snooze: add 5 minutes to current time
+                const now = new Date();
+                now.setMinutes(now.getMinutes() + 5);
+                const snoozeTime = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+                // remove old ringing alarm, add snoozed one if not duplicate
+                const oldTime = ringingAlarm.time;
+                alarms = alarms.filter(a => a.id !== ringingAlarm.id);
+                if (!alarms.some(a => a.time === snoozeTime)) {
+                    alarms.push({ id: Date.now() + Math.random(), time: snoozeTime });
+                }
+                stopRinging();
+                renderAlarms();
+                alarmStatusEl.textContent = `😴 snoozed to ${snoozeTime}`;
+                setTimeout(() => { if (!ringingAlarm) alarmStatusEl.textContent = ''; }, 3000);
+            });
+
             renderAlarms();
 
             // ---------- STOPWATCH MODULE ----------
             const stopwatchDisplay = document.getElementById('stopwatchDisplay');
             const swStart = document.getElementById('stopwatchStart');
             const swPause = document.getElementById('stopwatchPause');
+            const swLap = document.getElementById('stopwatchLap');
             const swReset = document.getElementById('stopwatchReset');
+            const lapListEl = document.getElementById('lapList');
 
             let swRunning = false;
             let swStartTime = 0;
-            let swElapsed = 0;       // in milliseconds
+            let swElapsed = 0;              // accumulated ms when paused
             let swInterval = null;
+            let swLaps = [];                // array of ms
 
             function formatStopwatch(ms) {
                 const totalSec = Math.floor(ms / 1000);
                 const minutes = Math.floor(totalSec / 60);
                 const seconds = totalSec % 60;
                 const hundredths = Math.floor((ms % 1000) / 10);
-                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(hundredths).padStart(2, '0')}`;
+                return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(hundredths).padStart(2,'0')}`;
             }
 
-            function updateStopwatch() {
-                const now = performance.now();
-                const elapsed = swElapsed + (now - swStartTime);
-                stopwatchDisplay.textContent = formatStopwatch(elapsed);
+            function getCurrentStopwatchMs() {
+                if (swRunning) {
+                    return swElapsed + (performance.now() - swStartTime);
+                }
+                return swElapsed;
+            }
+
+            function updateStopwatchDisplay() {
+                stopwatchDisplay.textContent = formatStopwatch(getCurrentStopwatchMs());
             }
 
             function startStopwatch() {
                 if (swRunning) return;
                 swRunning = true;
                 swStartTime = performance.now();
-                swInterval = setInterval(updateStopwatch, 20);
+                swInterval = setInterval(() => {
+                    stopwatchDisplay.textContent = formatStopwatch(swElapsed + (performance.now() - swStartTime));
+                }, 20);
+                updateStopwatchDisplay();
             }
 
             function pauseStopwatch() {
@@ -505,65 +579,104 @@
                 swElapsed += performance.now() - swStartTime;
                 clearInterval(swInterval);
                 swInterval = null;
-                updateStopwatch(); // final show
+                updateStopwatchDisplay();
             }
 
             function resetStopwatch() {
-                // stop if running
                 if (swRunning) {
                     swRunning = false;
                     clearInterval(swInterval);
                     swInterval = null;
                 }
                 swElapsed = 0;
+                swLaps = [];
+                lapListEl.innerHTML = '';
                 stopwatchDisplay.textContent = '00:00.00';
+            }
+
+            function recordLap() {
+                if (!swRunning && swElapsed === 0) return; // nothing to lap
+                const current = getCurrentStopwatchMs();
+                swLaps.push(current);
+                renderLaps();
+            }
+
+            function renderLaps() {
+                if (swLaps.length === 0) { lapListEl.innerHTML = ''; return; }
+                lapListEl.innerHTML = swLaps.map((ms, idx) => `
+                    <div class="lap-item">
+                        <span>Lap ${idx+1}</span>
+                        <span>${formatStopwatch(ms)}</span>
+                    </div>
+                `).join('');
             }
 
             swStart.addEventListener('click', startStopwatch);
             swPause.addEventListener('click', pauseStopwatch);
             swReset.addEventListener('click', resetStopwatch);
+            swLap.addEventListener('click', recordLap);
 
             // ---------- TIMER MODULE ----------
             const timerDisplay = document.getElementById('timerDisplay');
+            const timerProgress = document.getElementById('timerProgress');
             const timerMinutes = document.getElementById('timerMinutes');
             const timerSeconds = document.getElementById('timerSeconds');
             const timerStartBtn = document.getElementById('timerStart');
             const timerPauseBtn = document.getElementById('timerPause');
             const timerResetBtn = document.getElementById('timerReset');
+            const presetBtns = document.querySelectorAll('.timer-presets .btn');
 
             let timerRunning = false;
-            let timerEndTime = 0;       // timestamp when timer ends
-            let timerRemaining = 0;     // ms remaining when paused
+            let timerEndTime = 0;           // timestamp when timer ends
+            let timerRemaining = 0;         // ms remaining when paused
             let timerInterval = null;
-            let timerTotalSet = 0;      // total set time in ms
+            let timerTotalSet = 0;          // total ms of the timer
 
             function formatTimer(ms) {
                 if (ms < 0) ms = 0;
                 const totalSec = Math.floor(ms / 1000);
                 const mins = Math.floor(totalSec / 60);
                 const secs = totalSec % 60;
-                return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                return `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
             }
 
-            function updateTimerDisplayFromInput() {
-                if (!timerRunning) {
-                    const mins = parseInt(timerMinutes.value, 10) || 0;
-                    const secs = parseInt(timerSeconds.value, 10) || 0;
-                    const totalMs = (mins * 60 + secs) * 1000;
-                    timerDisplay.textContent = formatTimer(totalMs);
+            function updateTimerDisplay(ms) {
+                if (ms === undefined) ms = timerRunning ? Math.max(0, timerEndTime - performance.now()) : timerRemaining;
+                timerDisplay.textContent = formatTimer(ms);
+                if (timerTotalSet > 0) {
+                    const pct = Math.min(100, (ms / timerTotalSet) * 100);
+                    timerProgress.textContent = `${Math.round(pct)}% remaining`;
+                } else {
+                    timerProgress.textContent = '';
                 }
+            }
+
+            function setTimerFromInputs() {
+                if (timerRunning) return;
+                let mins = parseInt(timerMinutes.value, 10) || 0;
+                let secs = parseInt(timerSeconds.value, 10) || 0;
+                if (mins < 0) mins = 0; if (mins > 99) mins = 99;
+                if (secs < 0) secs = 0; if (secs > 59) secs = 59;
+                timerMinutes.value = mins;
+                timerSeconds.value = secs;
+                const totalMs = (mins * 60 + secs) * 1000;
+                timerRemaining = totalMs;
+                timerTotalSet = totalMs;
+                timerEndTime = 0;
+                updateTimerDisplay(totalMs);
             }
 
             function startTimer() {
                 if (timerRunning) return;
 
-                // if paused and there is remaining time, resume
+                // if paused with remaining time, resume
                 if (timerRemaining > 0) {
                     timerEndTime = performance.now() + timerRemaining;
+                    timerRunning = true;
                 } else {
-                    // fresh start from input
-                    const mins = parseInt(timerMinutes.value, 10) || 0;
-                    const secs = parseInt(timerSeconds.value, 10) || 0;
+                    // fresh start from inputs
+                    let mins = parseInt(timerMinutes.value, 10) || 0;
+                    let secs = parseInt(timerSeconds.value, 10) || 0;
                     const totalMs = (mins * 60 + secs) * 1000;
                     if (totalMs <= 0) {
                         alert('set a time greater than 0');
@@ -571,36 +684,27 @@
                     }
                     timerTotalSet = totalMs;
                     timerEndTime = performance.now() + totalMs;
+                    timerRemaining = totalMs;
+                    timerRunning = true;
                 }
 
-                timerRunning = true;
                 if (timerInterval) clearInterval(timerInterval);
                 timerInterval = setInterval(() => {
                     const now = performance.now();
                     const remaining = Math.max(0, timerEndTime - now);
-                    timerDisplay.textContent = formatTimer(remaining);
-
+                    updateTimerDisplay(remaining);
                     if (remaining <= 0) {
                         // timer finished
                         clearInterval(timerInterval);
                         timerInterval = null;
                         timerRunning = false;
                         timerRemaining = 0;
-                        timerDisplay.textContent = '00:00';
-                        // beep / alert
-                        try {
-                            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                            if (audioCtx.state === 'suspended') audioCtx.resume();
-                            const osc = audioCtx.createOscillator();
-                            const gain = audioCtx.createGain();
-                            osc.type = 'square';
-                            osc.frequency.value = 1000;
-                            gain.gain.value = 0.3;
-                            osc.connect(gain);
-                            gain.connect(audioCtx.destination);
-                            osc.start();
-                            osc.stop(audioCtx.currentTime + 0.5);
-                        } catch (e) {}
+                        updateTimerDisplay(0);
+                        timerProgress.textContent = 'done!';
+                        // sound: three quick beeps
+                        beep(1000, 0.15, 'square', 0.35);
+                        setTimeout(() => beep(1000, 0.15, 'square', 0.35), 250);
+                        setTimeout(() => beep(1000, 0.15, 'square', 0.35), 500);
                         alert('⏳ Timer finished!');
                     }
                 }, 100);
@@ -613,10 +717,9 @@
                     clearInterval(timerInterval);
                     timerInterval = null;
                 }
-                // calculate remaining ms
                 const now = performance.now();
                 timerRemaining = Math.max(0, timerEndTime - now);
-                timerDisplay.textContent = formatTimer(timerRemaining);
+                updateTimerDisplay(timerRemaining);
             }
 
             function resetTimer() {
@@ -628,35 +731,38 @@
                     }
                 }
                 timerRemaining = 0;
-                // sync display with input
-                const mins = parseInt(timerMinutes.value, 10) || 0;
-                const secs = parseInt(timerSeconds.value, 10) || 0;
-                timerDisplay.textContent = formatTimer((mins * 60 + secs) * 1000);
+                timerEndTime = 0;
+                setTimerFromInputs();
             }
 
-            // when user changes input while not running, update display
-            timerMinutes.addEventListener('input', () => {
-                if (!timerRunning && timerRemaining === 0) {
-                    updateTimerDisplayFromInput();
-                }
-            });
-            timerSeconds.addEventListener('input', () => {
-                if (!timerRunning && timerRemaining === 0) {
-                    updateTimerDisplayFromInput();
-                }
-            });
-
+            // event listeners
             timerStartBtn.addEventListener('click', startTimer);
             timerPauseBtn.addEventListener('click', pauseTimer);
             timerResetBtn.addEventListener('click', resetTimer);
 
-            // initialize timer display from default 5:00
-            updateTimerDisplayFromInput();
+            timerMinutes.addEventListener('input', () => { if (!timerRunning) setTimerFromInputs(); });
+            timerSeconds.addEventListener('input', () => { if (!timerRunning) setTimerFromInputs(); });
 
-            // make sure timer doesn't break if minutes > 99 etc, just clamp display
-            // also stop alarm sound on page unload
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (timerRunning) return;
+                    const secs = parseInt(btn.dataset.preset, 10);
+                    const mins = Math.floor(secs / 60);
+                    const remSecs = secs % 60;
+                    timerMinutes.value = mins;
+                    timerSeconds.value = remSecs;
+                    setTimerFromInputs();
+                });
+            });
+
+            // initialize
+            setTimerFromInputs();
+
+            // ---------- CLEANUP ON UNLOAD ----------
             window.addEventListener('beforeunload', () => {
                 stopAlarmSound();
+                if (swInterval) clearInterval(swInterval);
+                if (timerInterval) clearInterval(timerInterval);
             });
         })();
     </script>
