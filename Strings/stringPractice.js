@@ -54,9 +54,6 @@ let data = "apple banana apple orange apple apple";
 let count = data.split("apple").length - 1 ;
 console.log(count) ;
 
-
-
-
 // Exercise 8: Extract substring
 let email = "user@example.com";
 // TODO: Extract the username (before @) and domain (after @)
