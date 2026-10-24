@@ -439,6 +439,7 @@
 
             // ---------- ALARM MODULE ----------
             const alarmInput = document.getElementById('alarmInput');
+            
             const setAlarmBtn = document.getElementById('setAlarmBtn');
             const alarmListEl = document.getElementById('alarmList');
             const alarmStatusEl = document.getElementById('alarmStatus');
@@ -448,7 +449,7 @@
             let alarms = [];                // { id, time }
             let ringingAlarm = null;        // { id, time }
             let alarmSoundInterval = null;
-            
+
 
             function startAlarmSound() {
                 if (alarmSoundInterval) return;
