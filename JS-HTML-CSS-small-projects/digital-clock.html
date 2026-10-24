@@ -438,6 +438,7 @@
             updateClock();
 
             // ---------- ALARM MODULE ----------
+
             const alarmInput = document.getElementById('alarmInput');
 
             const setAlarmBtn = document.getElementById('setAlarmBtn');
@@ -447,11 +448,13 @@
             const alarmStatusEl = document.getElementById('alarmStatus');
 
             const stopAlarmBtn = document.getElementById('stopAlarmBtn');
-            
+
             const snoozeAlarmBtn = document.getElementById('snoozeAlarmBtn');
 
             let alarms = [];                // { id, time }
+
             let ringingAlarm = null;        // { id, time }
+            
             let alarmSoundInterval = null;
 
 
