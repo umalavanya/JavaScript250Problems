@@ -381,7 +381,7 @@
             function beep(freq = 880, duration = 0.25, type = 'sine', vol = 0.4) {
                 const ctx = getAudioCtx();
                 if (!ctx) return;
-                
+
                 try {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
@@ -448,6 +448,7 @@
             let alarms = [];                // { id, time }
             let ringingAlarm = null;        // { id, time }
             let alarmSoundInterval = null;
+            
 
             function startAlarmSound() {
                 if (alarmSoundInterval) return;
