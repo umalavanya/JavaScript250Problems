@@ -454,9 +454,8 @@
             let alarms = [];                // { id, time }
 
             let ringingAlarm = null;        // { id, time }
-            
-            let alarmSoundInterval = null;
 
+            let alarmSoundInterval = null;
 
             function startAlarmSound() {
                 if (alarmSoundInterval) return;
@@ -481,8 +480,10 @@
             function checkAlarms(hh, mm, ss) {
                 if (ringingAlarm) return;
                 const nowTime = `${hh}:${mm}`;
+
                 for (let al of alarms) {
                     if (al.time === nowTime) {
+
                         ringingAlarm = { ...al };
                         alarmStatusEl.textContent = `⏰ RINGING! ${al.time} — stop or snooze`;
                         stopAlarmBtn.style.display = 'inline-flex';
@@ -490,11 +491,13 @@
                         alarmTimeDisplay.classList.add('ringing');
                         startAlarmSound();
                         break;
+
                     }
                 }
             }
 
             function renderAlarms() {
+
                 if (alarms.length === 0) {
                     alarmListEl.innerHTML = '<span style="color:#5b7e9c;">no alarms set</span>';
                     return;
@@ -505,6 +508,7 @@
                         <button class="delete-alarm" data-id="${al.id}" title="remove">✕</button>
                     </div>
                 `).join('');
+
                 document.querySelectorAll('.delete-alarm').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const id = Number(btn.dataset.id);
@@ -760,11 +764,11 @@
             timerStartBtn.addEventListener('click', startTimer);
             timerPauseBtn.addEventListener('click', pauseTimer);
             timerResetBtn.addEventListener('click', resetTimer);
-
             timerMinutes.addEventListener('input', () => { if (!timerRunning) setTimerFromInputs(); });
             timerSeconds.addEventListener('input', () => { if (!timerRunning) setTimerFromInputs(); });
 
             presetBtns.forEach(btn => {
+
                 btn.addEventListener('click', () => {
                     if (timerRunning) return;
                     const secs = parseInt(btn.dataset.preset, 10);
@@ -774,9 +778,11 @@
                     timerSeconds.value = remSecs;
                     setTimerFromInputs();
                 });
+
             });
 
             // initialize
+
             setTimerFromInputs();
 
             // ---------- CLEANUP ON UNLOAD ----------
