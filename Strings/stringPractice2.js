@@ -1,0 +1,1 @@
+// this is to ppractice the strings in JavaScript

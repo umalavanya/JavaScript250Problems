@@ -4,9 +4,8 @@ const myModule = (() =>{
         return privateData ;
     }
     return ()=>{
-        
-        privateData() ;
 
+        privateData() ;
     }
 })() ;
 
