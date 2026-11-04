@@ -19,3 +19,4 @@ const fib = memoize(function(n){
 });
 
 console.log(fib(10)) ;
+// This is memoization program
