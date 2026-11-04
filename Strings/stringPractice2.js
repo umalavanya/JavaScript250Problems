@@ -6,4 +6,5 @@ let str3 =  str1 + str2 ;
 console.log(str3) ;
 let str4 = "JavaScript" ;
 
-let str5 = "there is freedom in the democracy"
+let str5 = "there is freedom in the democracy" ;
+console.log(str5) ;
