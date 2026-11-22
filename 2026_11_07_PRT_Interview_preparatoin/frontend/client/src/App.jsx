@@ -88,10 +88,14 @@ function App(){
       <h1>Library Book Management Portal</h1>
 
       {/* including Dashboard here */}
+      <Dashboard stats={stats}/>
       
       {error && <p clasName="err">{error}</p>}
 
-      <BookForm  editingBook={editingBook}/>
+      <BookForm 
+          onSubmit={handleSubmit}
+          editingBook={editingBook}
+          onCancelEdit={() => setEditingBook(null)}/>
 
 
       <div className="filters">
@@ -120,6 +124,10 @@ function App(){
           <option>Reserved</option>
         </select>
       </div>
+      <BookList books={books}
+                onEdit={setEditingBook}
+                onDelete={handleDelete} 
+      />
 
     </div>
     </>

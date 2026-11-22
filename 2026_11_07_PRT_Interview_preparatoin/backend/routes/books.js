@@ -32,7 +32,7 @@ router.get('/stats', async (req,res) => {
     try{
         const total =  await Book.countDocuments();
         const programming =  await Book.countDocuments({category : 'Programming'});
-        const dataScience =  await Book.countDocuments({category : 'DataScience'});
+        const dataScience =  await Book.countDocuments({category : 'Data Science'});
         const database = await Book.countDocuments({category : 'Database'}) ;
         const webDev = await Book.countDocuments({category : 'Web Development'});
         const available = await Book.countDocuments({status : 'Available'});

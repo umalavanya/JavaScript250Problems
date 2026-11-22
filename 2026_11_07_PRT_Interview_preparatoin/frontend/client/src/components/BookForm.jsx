@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-const CATEGORIES = ['programming',
-                    'DataScience',
+const CATEGORIES = ['Programming',
+                    'Data Science',
                     'Database',
                     'WebDevelopment'  ];
 
@@ -47,18 +47,74 @@ function BookForm({onSubmit, editingBook, onCancelEdit}){
 
         if(!form.isbn.trim()){
             e.isbn = 'ISBN is required!!';
+        } else if(!/^[0-9A-Za-z-]{10,17}$]/.test(form.isbn)){
+            e.isbn = 'Invalid ISBN format' ;
         }
+
+        if(!form.category){
+            e.status = 'Status is required';
+        }
+
+        return e ;
+
+    }
+
+    const handleChange = (e) => {
+        setForm({...form, [e.target.name]: e.target.value});
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const eObj = validate();
+        setErrors(eObj) ;
+        if(Object.keys(eObj).length > 0)return ;
+        onSubmit(form);
+        if(!editingBook) setForm(empty);
     }
 
     return (
         <>
-        <form className="book-form">
+        <form onSubmit={handleSubmit} className="book-form">
             <h2>{editingBook?'Edit Book':'Register Book'}</h2>
-
+            <input
+               name="title"
+               placeholder="Book title"
+               value={form.title}
+               onChange={handleChange}
+               />
+            {errors.title && <span className="err">{errors.title}</span>}
+            <input 
+                name = "author"
+                placeholder="Author Name"
+                value={form.author}
+                onChange={handleChange}/>
+            {errors.author && <span className="err">{errors.author}</span>}
+            <select 
+                name="category"
+                value={form.category}
+                onChange={handleChange}
+            >
+                <option value="">Select Category</option>
+                {CATEGORIES.map((c)=><option key={c}>{c}</option>)}
+            </select>
+            {errors.category && <span className="err">{errors.category}</span>}
+            <select 
+                name = "status"
+                value={form.status}
+                onChange={handleChange}
+            >
+                <option value="">Select Status</option>
+                {
+                    STATUSES.map((s) => <option key={s}>{s}</option>)
+                }
+            </select>
+            {errors.status && <span className="err">{errors.status}</span>}
+            <button type="submit">{editingBook?"Update":"Register"}</button>
+            {editingBook && <button type="button" onClick={onCancelEdit}>Cancel</button>}
 
         </form>
         </>
-    )
-}
+    );
+};
 
 export default BookForm;
