@@ -17,7 +17,7 @@ function App(){
     programming: 0,
     dataScience: 0,
     database:0,
-    webdev:0,
+    webDev:0,
     available:0 }) ;
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All');
@@ -39,6 +39,7 @@ function App(){
       setError(error.response?.data?.error || 'Failed to load books');
     }
   }, [search, category, status]);
+
   const loadStats = async () => {
     try{
       const res = await fetchStats();
@@ -90,7 +91,7 @@ function App(){
       {/* including Dashboard here */}
       <Dashboard stats={stats}/>
       
-      {error && <p clasName="err">{error}</p>}
+      {error && <p className="err">{error}</p>}
 
       <BookForm 
           onSubmit={handleSubmit}

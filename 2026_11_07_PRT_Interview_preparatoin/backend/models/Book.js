@@ -14,7 +14,7 @@ const bookSchema = new mongoose.Schema({
     isbn:{
         type: String,
         required: true,
-        match: [/^[0-9A-Za-z-]{10, 17}$/, 'Invalid ISBN format'],
+        match: [/^[0-9A-Za-z-]{10,17}$/, 'Invalid ISBN format'],
         trim: true
     },
     category:{

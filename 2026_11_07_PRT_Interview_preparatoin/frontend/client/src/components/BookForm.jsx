@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 const CATEGORIES = ['Programming',
                     'Data Science',
                     'Database',
-                    'WebDevelopment'  ];
+                    'Web Development'  ];
 
 const STATUSES = [  'Available',
                     'Issued',
@@ -47,11 +47,15 @@ function BookForm({onSubmit, editingBook, onCancelEdit}){
 
         if(!form.isbn.trim()){
             e.isbn = 'ISBN is required!!';
-        } else if(!/^[0-9A-Za-z-]{10,17}$]/.test(form.isbn)){
+        } else if(!/^[0-9A-Za-z-]{10,17}$/.test(form.isbn)){
             e.isbn = 'Invalid ISBN format' ;
         }
 
         if(!form.category){
+            e.category = 'Category is required';
+        }
+
+        if(!form.status){
             e.status = 'Status is required';
         }
 
@@ -63,12 +67,12 @@ function BookForm({onSubmit, editingBook, onCancelEdit}){
         setForm({...form, [e.target.name]: e.target.value});
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const eObj = validate();
         setErrors(eObj) ;
         if(Object.keys(eObj).length > 0)return ;
-        onSubmit(form);
+        await onSubmit(form);
         if(!editingBook) setForm(empty);
     }
 
@@ -89,6 +93,14 @@ function BookForm({onSubmit, editingBook, onCancelEdit}){
                 value={form.author}
                 onChange={handleChange}/>
             {errors.author && <span className="err">{errors.author}</span>}
+
+            <input 
+                name="isbn"
+                placeholder="ISBN"
+                value={form.isbn}
+                onChange={handleChange}/>
+            {errors.isbn && <span className="err">{errors.isbn}</span>}
+
             <select 
                 name="category"
                 value={form.category}
